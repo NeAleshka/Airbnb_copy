@@ -36,10 +36,10 @@ const Header = () => {
       </div>
       {/*Search*/}
       <div
-        className={'flex items-center justify-between md:border-2 rounded-xl '}>
+        className={'flex items-center justify-between md:border-2 rounded-xl'}>
         <input
           type={'text'}
-          className={'outline-none bg-transparent px-2'}
+          className={'outline-none bg-transparent px-2 flex-grow'}
           placeholder={'Start your search ...'}
         />
         <MagnifyingGlassCircleIcon
