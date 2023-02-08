@@ -7,3 +7,8 @@ export interface IExploreItem {
   location: string;
   distance: string;
 }
+
+export interface ILiveAnywhereCards {
+  img: string;
+  title: string;
+}

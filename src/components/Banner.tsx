@@ -9,7 +9,7 @@ const Banner = () => {
         'relative h-max-[600px] h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px]'
       }>
       <Image style={{maxHeight: '100%'}} src={banner} alt={'banner'} priority />
-      <div className={'absolute top-1/2 w-full text-center'}>
+      <div className={'absolute top-1/4 w-full text-center md:top-1/2'}>
         <p className={'text-sm text-white font-bold sm:text-lg'}>
           Not sure where to go? Perfect.
         </p>
