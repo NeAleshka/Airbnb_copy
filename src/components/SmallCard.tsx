@@ -4,7 +4,10 @@ import Image from 'next/image';
 
 const SmallCard = ({img, location, distance}: IExploreItem) => {
   return (
-    <div className={'flex mr-10 mb-[20px]'}>
+    <div
+      className={
+        'flex mr-10 mb-[20px] hover:scale-105 transform transition duration-300 ease-out'
+      }>
       <Image
         className={'rounded-xl'}
         src={img}

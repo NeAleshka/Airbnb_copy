@@ -1,6 +1,13 @@
 import Head from 'next/head';
 import {IExploreData, ILiveAnywhereCards} from '@/interfaces/exploreData';
-import {SmallCard, MediumCard, Header, Banner, LargeCard} from '@/components';
+import {
+  SmallCard,
+  MediumCard,
+  Header,
+  Banner,
+  LargeCard,
+  Footer,
+} from '@/components';
 
 interface IHomeProps {
   exploreData: IExploreData;
@@ -53,6 +60,9 @@ export default function Home({exploreData, liveAnywhereCards}: IHomeProps) {
           description={'Wishlists curated by Airbnb'}
         />
       </main>
+      <footer className={'bg-gray-300 '}>
+        <Footer />
+      </footer>
     </>
   );
 }

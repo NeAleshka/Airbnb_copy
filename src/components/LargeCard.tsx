@@ -22,12 +22,12 @@ const LargeCard = ({img, title, description, buttonText}: ILargeCardProps) => {
         <div className={'absolute top-32 left-12 font-bold'}>
           <div className={'text-4xl  mb-3 w-64'}>{title}</div>
           <div className={'mb-7'}>{description}</div>
-          <span
+          <div
             className={
-              'font-normal text-sm text-white bg-gray-900 py-2 px-4 rounded-[5px] cursor-pointer'
+              'w-fit font-normal text-sm text-white bg-gray-900 py-2 px-4 rounded-[5px] cursor-pointer hover:scale-105 transform transition duration-300 ease-out'
             }>
             {buttonText}
-          </span>
+          </div>
         </div>
       </div>
     </section>
