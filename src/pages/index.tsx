@@ -14,6 +14,8 @@ interface IHomeProps {
   liveAnywhereCards: ILiveAnywhereCards[];
 }
 
+type childrenMainPropsType = Partial<IHomeProps>;
+
 export default function Home({exploreData, liveAnywhereCards}: IHomeProps) {
   return (
     <>
@@ -24,48 +26,66 @@ export default function Home({exploreData, liveAnywhereCards}: IHomeProps) {
       </Head>
       <Header />
       <Banner />
-      <main className={'max-w-7xl mx-auto px-4'}>
-        <section className={'pt-[30px]'}>
-          <h2 className={'text-4xl font-semibold pb-5'}> Explore Nearby</h2>
-        </section>
-        <div className={'flex flex-wrap justify-between'}>
-          {exploreData?.items.map(({img, location, distance}, index) => {
-            return (
-              <SmallCard
-                key={`${img}_${index}`}
-                distance={distance}
-                img={img}
-                location={location}
-              />
-            );
-          })}
-        </div>
-        <section className={'text-4xl font-semibold py-8'}>
-          <div className={'pb-3'}> Live Anywhere</div>
-          <div
-            className={
-              'flex overflow-scroll space-x-3 overflow-y-hidden scrollbar-thin scrollbar-thumb-rounded-xl scrollbar-thumb-gray-300 p-3 -m-3'
-            }>
-            {liveAnywhereCards?.map(({img, title}, index) => (
-              <MediumCard key={`${img}_${index}`} img={img} title={title} />
-            ))}
-          </div>
-        </section>
-        <LargeCard
-          img={
-            'https://a0.muscache.com/im/pictures/2da67c1c-0c61-4629-8798-1d4de1ac9291.jpg?im_w=1440'
-          }
-          title={'The Greatest Outdoor'}
-          buttonText={'Get Inspired'}
-          description={'Wishlists curated by Airbnb'}
-        />
-      </main>
-      <footer className={'bg-gray-300 '}>
-        <Footer />
-      </footer>
+      <Main exploreData={exploreData} liveAnywhereCards={liveAnywhereCards} />
+      <Footer />
     </>
   );
 }
+
+const Main = ({exploreData, liveAnywhereCards}: IHomeProps) => {
+  const largeImg =
+    'https://a0.muscache.com/im/pictures/2da67c1c-0c61-4629-8798-1d4de1ac9291.jpg?im_w=1440';
+  return (
+    <main className={'max-w-7xl mx-auto px-4'}>
+      <Explore exploreData={exploreData} />
+      <LiveAnywhere liveAnywhereCards={liveAnywhereCards} />
+      <LargeCard
+        img={largeImg}
+        title={'The Greatest Outdoor'}
+        buttonText={'Get Inspired'}
+        description={'Wishlists curated by Airbnb'}
+      />
+    </main>
+  );
+};
+
+const Explore = ({exploreData}: childrenMainPropsType) => {
+  return (
+    <>
+      <div className={'pt-[30px]'}>
+        <h2 className={'text-4xl font-semibold pb-5'}> Explore Nearby</h2>
+      </div>
+      <div className={'flex flex-wrap justify-between'}>
+        {exploreData?.items.map(({img, location, distance}, index) => {
+          return (
+            <SmallCard
+              key={`${img}_${index}`}
+              distance={distance}
+              img={img}
+              location={location}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
+};
+
+const LiveAnywhere = ({liveAnywhereCards}: childrenMainPropsType) => {
+  return (
+    <section className={'text-4xl font-semibold py-8'}>
+      <div className={'pb-3'}> Live Anywhere</div>
+      <div
+        className={
+          'flex overflow-scroll space-x-3 overflow-y-hidden scrollbar-thin scrollbar-thumb-rounded-xl scrollbar-thumb-gray-300 p-3 -m-3'
+        }>
+        {liveAnywhereCards?.map(({img, title}, index) => (
+          <MediumCard key={`${img}_${index}`} img={img} title={title} />
+        ))}
+      </div>
+    </section>
+  );
+};
 
 export const getStaticProps = async () => {
   const exploreData = await fetch('https://www.jsonkeeper.com/b/4G1G').then(
