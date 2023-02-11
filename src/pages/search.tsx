@@ -18,16 +18,18 @@ const Search = () => {
     'More filters',
   ];
 
-  const rangeDate = `${format(
-    new Date(`${startDate}`),
-    'dd MMMM yy',
-  )} - ${format(new Date(`${endDate}`), 'dd MMMM yy')}`;
+  const formattedStartData =
+    startDate && format(new Date(startDate.toString()), 'dd MMMM yy');
+
+  const formattedEndData =
+    endDate && format(new Date(endDate.toString()), 'dd MMMM yy');
 
   return (
     <>
       <Header />
-      <div className={'text-sm'}>
-        300+ stays-{rangeDate} - {noOfGuests} guests
+      <div className={'text-sm '}>
+        300+ stays -{formattedStartData}-{formattedEndData} - {noOfGuests}{' '}
+        guests
       </div>
       <div className={'hidden lg:inline-flex my-3 space-x-3'}>
         {filterButtonTitles.map((title, index) => (

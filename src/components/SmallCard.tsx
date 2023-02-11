@@ -6,7 +6,7 @@ const SmallCard = ({img, location, distance}: IExploreItem) => {
   return (
     <div
       className={
-        'flex mr-10 mb-[20px] hover:scale-105 transform transition duration-300 ease-out'
+        'flex mr-10 mb-[20px] rounded-2xl hover:scale-105 transform transition duration-300 ease-out hover:bg-gray-100'
       }>
       <Image
         className={'rounded-xl'}
