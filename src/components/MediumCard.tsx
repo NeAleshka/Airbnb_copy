@@ -1,13 +1,10 @@
 import React from 'react';
-import {ILiveAnywhereCards} from '@/interfaces/exploreData';
+import {ILiveAnywhereCards} from '@/interfaces';
 import Image from 'next/image';
 
 const MediumCard = ({img, title}: ILiveAnywhereCards) => {
   return (
-    <div
-      className={
-        'cursor-pointer hover:scale-105 transform transition duration-300 ease-out'
-      }>
+    <div className={'cursor-pointer hover:scale-105 transform transition duration-300 ease-out'}>
       <div className={'relative h-80 w-80'}>
         <Image
           src={img}

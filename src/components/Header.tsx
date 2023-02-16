@@ -13,22 +13,19 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import {DateRangePicker} from 'react-date-range';
 import {useRouter} from 'next/router';
-interface ILogoProps {
-  headerWidth: number | undefined;
-}
+import {IHeaderProps, ILogoProps} from '@/interfaces';
 
-const Header = () => {
-  const {ref: headerRef, width: headerWidth} =
-    useResizeObserver<HTMLDivElement>({
-      box: 'border-box',
-    });
+const Header = ({placeholder}: IHeaderProps) => {
+  const {ref: headerRef, width: headerWidth} = useResizeObserver<HTMLDivElement>({
+    box: 'border-box',
+  });
 
   return (
     <header
       ref={headerRef}
       className={`sticky top-0 z-50 grid grid-cols-3  shadow-md bg-white p-5 md:px-10`}>
       <Logo headerWidth={headerWidth} />
-      <Search />
+      <Search placeholder={placeholder} />
       <NavigationBar />
     </header>
   );
@@ -41,10 +38,24 @@ const Logo = ({headerWidth}: ILogoProps) => {
   const logo = () => {
     if (headerWidth && headerWidth >= 500)
       return (
-        <Image src={lgLogo} alt={'airbnb'} width={102} height={32} priority />
+        <Image
+          src={lgLogo}
+          alt={'airbnb'}
+          width={102}
+          height={32}
+          priority
+          className={'h-auto w-auto'}
+        />
       );
     return (
-      <Image src={smLogo} alt={'airbnb'} width={32} height={32} priority />
+      <Image
+        src={smLogo}
+        alt={'airbnb'}
+        width={32}
+        height={32}
+        priority
+        className={'h-auto w-auto'}
+      />
     );
   };
   return (
@@ -56,7 +67,7 @@ const Logo = ({headerWidth}: ILogoProps) => {
   );
 };
 
-const Search = () => {
+const Search = ({placeholder}: IHeaderProps) => {
   const [search, setSearch] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -87,14 +98,11 @@ const Search = () => {
     key: 'selection',
   };
   return (
-    <div
-      className={
-        'relative flex items-center justify-between md:border-2 rounded-xl'
-      }>
+    <div className={'relative flex items-center justify-between md:border-2 rounded-xl'}>
       <input
         type={'text'}
         className={'outline-none bg-transparent px-2 flex-grow'}
-        placeholder={'Start your search ...'}
+        placeholder={placeholder || 'Start your search ...'}
         onChange={event => setSearch(event.currentTarget.value)}
         value={search}
       />
@@ -112,9 +120,7 @@ const Search = () => {
               onChange={handleSelectDate}
             />
             <div className={'flex mx-4 items-center border-b mb-4'}>
-              <div className={'flex-grow font-semibold text-2xl'}>
-                Number of Guests
-              </div>
+              <div className={'flex-grow font-semibold text-2xl'}>Number of Guests</div>
               <UsersIcon className={'h-[20px] mr-[10px]'} />
               <input
                 type={'number'}
@@ -124,10 +130,8 @@ const Search = () => {
                 onChange={event => setNoOfGuests(+event.currentTarget.value)}
               />
             </div>
-            <div className={'flex'}>
-              <button
-                onClick={() => setSearch('')}
-                className={'w-1/2 text-red-400'}>
+            <div className={'flex items-center mb-3'}>
+              <button onClick={() => setSearch('')} className={'w-1/2 text-red-400'}>
                 Cancel
               </button>
               <button className={'w-1/2 text-gray-500'} onClick={searchClick}>
@@ -151,9 +155,7 @@ const NavigationBar = () => {
           'flex items-center border-1 p-[7px] rounded-full space-x-2 border-solid border-[1px] border-[#DDDDDD] hover:shadow-md'
         }>
         <Bars3Icon className={'h-[19px] w-[19px]'} />
-        <UserCircleIcon
-          className={'h-[20px] w-[20px] text-[#717171] md:h-[35px] w-[35px]'}
-        />
+        <UserCircleIcon className={'h-[20px] w-[20px] text-[#717171] md:h-[35px] w-[35px]'} />
       </div>
     </nav>
   );

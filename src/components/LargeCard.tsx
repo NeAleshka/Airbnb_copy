@@ -1,12 +1,6 @@
 import React from 'react';
 import Image from 'next/legacy/image';
-
-interface ILargeCardProps {
-  img: string;
-  description: string;
-  buttonText: string;
-  title: string;
-}
+import {ILargeCardProps} from '@/interfaces';
 
 const LargeCard = ({img, title, description, buttonText}: ILargeCardProps) => {
   return (

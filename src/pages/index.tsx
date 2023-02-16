@@ -1,20 +1,6 @@
 import Head from 'next/head';
-import {IExploreData, ILiveAnywhereCards} from '@/interfaces/exploreData';
-import {
-  SmallCard,
-  MediumCard,
-  Header,
-  Banner,
-  LargeCard,
-  Footer,
-} from '@/components';
-
-interface IHomeProps {
-  exploreData: IExploreData;
-  liveAnywhereCards: ILiveAnywhereCards[];
-}
-
-type childrenMainPropsType = Partial<IHomeProps>;
+import {childrenMainPropsType, IHomeProps} from '@/interfaces';
+import {Banner, Footer, Header, LargeCard, MediumCard, SmallCard} from '@/components';
 
 export default function Home({exploreData, liveAnywhereCards}: IHomeProps) {
   return (
@@ -58,12 +44,7 @@ const Explore = ({exploreData}: childrenMainPropsType) => {
       <div className={'flex flex-wrap justify-between'}>
         {exploreData?.items.map(({img, location, distance}, index) => {
           return (
-            <SmallCard
-              key={`${img}_${index}`}
-              distance={distance}
-              img={img}
-              location={location}
-            />
+            <SmallCard key={`${img}_${index}`} distance={distance} img={img} location={location} />
           );
         })}
       </div>
@@ -88,13 +69,11 @@ const LiveAnywhere = ({liveAnywhereCards}: childrenMainPropsType) => {
 };
 
 export const getStaticProps = async () => {
-  const exploreData = await fetch('https://www.jsonkeeper.com/b/4G1G').then(
-    res => res.json(),
-  );
+  const exploreData = await fetch('https://www.jsonkeeper.com/b/4G1G').then(res => res.json());
 
-  const liveAnywhereCards = await fetch(
-    'https://www.jsonkeeper.com/b/VHHT',
-  ).then(res => res.json());
+  const liveAnywhereCards = await fetch('https://www.jsonkeeper.com/b/VHHT').then(res =>
+    res.json(),
+  );
 
   return {
     props: {
