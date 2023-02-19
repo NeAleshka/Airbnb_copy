@@ -15,7 +15,7 @@ const ReactMap = ({searchResultItems}: SearchPageProps) => {
     <YMaps query={{lang: 'en_US'}}>
       <Map
         defaultState={{
-          center: center && [center.latitude - 0.12, center.longitude - 0.01],
+          center: center ? [center.latitude - 0.12, center.longitude - 0.01] : [0, 0],
           zoom: 12,
           controls: ['fullscreenControl'],
         }}
