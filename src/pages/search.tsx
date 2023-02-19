@@ -7,6 +7,7 @@ import Image from 'next/image';
 import {HeartIcon} from '@heroicons/react/24/outline';
 import {StarIcon} from '@heroicons/react/24/solid';
 import Head from 'next/head';
+import ReactMap from '@/components/ReactMap';
 
 type FilterButtonPropsType = {
   title: string;
@@ -15,7 +16,6 @@ type FilterButtonPropsType = {
 const Search = ({searchResultItems}: SearchPageProps) => {
   const {location, startDate, endDate, noOfGuests} = useRouter().query;
 
-  console.log(searchResultItems);
   const filterButtonTitles = [
     'Cancellation Flexibility',
     'Type of Place',
@@ -45,19 +45,26 @@ const Search = ({searchResultItems}: SearchPageProps) => {
           ))}
         </div>
       </div>
-      <div className={'flex flex-col mb-3 md:pl-5 md:pr-14'}>
-        {searchResultItems.map(({img, price, title, star, total, description, location}) => (
-          <PlaceCard
-            img={img}
-            location={location}
-            title={title}
-            description={description}
-            star={star}
-            price={price}
-            total={total}
-          />
-        ))}
+      <div className={'flex'}>
+        <div className={'flex flex-col mb-3 md:pl-5 md:pr-5 flex-grow'}>
+          {searchResultItems.map(({img, price, title, star, total, description, location}) => (
+            <PlaceCard
+              key={img}
+              img={img}
+              location={location}
+              title={title}
+              description={description}
+              star={star}
+              price={price}
+              total={total}
+            />
+          ))}
+        </div>
+        <div className={'hidden xl:inline-flex w-1/3'}>
+          <ReactMap searchResultItems={searchResultItems} />
+        </div>
       </div>
+
       <Footer />
     </>
   );
@@ -67,14 +74,9 @@ export default Search;
 
 const PlaceCard = ({img, price, title, star, total, description, location}: IPlaceCard) => {
   return (
-    <div
-      key={img + title}
-      className={
-        'flex w-full py-8 pl-5 cursor-pointer rounded-2xl border-b hover:shadow-2xl hover:opacity-80 transition' +
-        ' duration-200 ease-out first:border-t'
-      }>
+    <div key={img + title} className={'place_card_wrapper'}>
       <div className={'relative mr-3 h-24 w-52 md: h-52 md:w-80 flex-shrink-0'}>
-        <Image src={img} alt={title} fill priority className={'rounded-2xl'} />
+        <Image src={img} alt={title} fill sizes={'200px'} priority className={'rounded-2xl'} />
       </div>
       <div className={'w-full flex flex-col justify-between pr-9'}>
         <div className={'flex justify-between'}>
